@@ -1,7 +1,13 @@
 # Simple XML Helper
 
+## Documentation
+
+[https://gibme-npm.github.io/xml/](https://gibme-npm.github.io/xml/)
+
+## Sample Code
+
 ```typescript
-import {parseXML, objToXML} from "@gibme/xml";
+import XML from "@gibme/xml";
 
 (async () => {
     const obj = {
@@ -11,8 +17,8 @@ import {parseXML, objToXML} from "@gibme/xml";
         float: 3.324234234
     };
     
-    const xml = objToXML(obj);
+    const xml = XML.objToXML(obj);
     
-    const data = await parseXML(xml);
+    const data = await XML.parseXML(xml);
 })();
 ```
