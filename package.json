@@ -1,6 +1,6 @@
 {
   "name": "@gibme/xml",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A simple XML helper",
   "main": "dist/xml.js",
   "types": "dist/xml.d.ts",
