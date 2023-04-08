@@ -24,10 +24,12 @@ import XML from '../src/xml';
 
 describe('XML Tests', () => {
     const obj = {
-        test: true,
-        text: 'text',
-        num: 10,
-        float: 3.324234234
+        root: {
+            test: true,
+            text: 'text',
+            num: 10,
+            float: 3.324234234
+        }
     };
 
     let xml: string;

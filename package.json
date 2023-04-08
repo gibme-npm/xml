@@ -1,6 +1,6 @@
 {
   "name": "@gibme/xml",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "A simple XML helper",
   "main": "dist/xml.js",
   "types": "dist/xml.d.ts",
@@ -53,8 +53,6 @@
     "typescript": "^4.8.4"
   },
   "dependencies": {
-    "@types/xml2js": "^0.4.11",
-    "xml2js": "^0.4.23",
-    "xmlbuilder": "^15.1.1"
+    "fast-xml-parser": "^4.1.4"
   }
 }

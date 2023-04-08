@@ -18,59 +18,42 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import * as XMLToJS from 'xml2js';
-import { BuilderOptions, ParserOptions } from 'xml2js';
-import { parseBooleans, parseNumbers, normalize, firstCharLowerCase, stripPrefix } from 'xml2js/lib/processors';
-import xmlbuilder from 'xmlbuilder';
-
-export { XMLToJS, BuilderOptions, ParserOptions, xmlbuilder, normalize, firstCharLowerCase, stripPrefix };
+import {
+    XMLParser, X2jOptions as XMLParserOptions, XMLBuilder,
+    XmlBuilderOptions as XMLBuilderOptions, validationOptions as XMLValidatorOptions
+} from 'fast-xml-parser';
 
 export default abstract class XML {
     /**
      * Parses the XML provided into a JS object
      *
      * @param xml
-     * @param options
+     * @param parserOptions
+     * @param validatorOptions
      */
     public static async parseXML<Type> (
         xml: string | Buffer,
-        options: ParserOptions = {}
+        parserOptions: Partial<XMLParserOptions> = {},
+        validatorOptions?: boolean | Partial<XMLValidatorOptions>
     ): Promise<Type> {
         if (xml instanceof Buffer) {
             xml = xml.toString();
         }
 
-        options.explicitArray ??= false;
-        options.explicitRoot ??= false;
-        options.attrValueProcessors ??= [parseNumbers, parseBooleans];
-        options.attrNameProcessors ??= [parseNumbers, parseBooleans];
-        options.valueProcessors ??= [parseNumbers, parseBooleans];
-        options.tagNameProcessors ??= [parseNumbers, parseBooleans];
-
-        return new Promise((resolve, reject) => {
-            const parser = new XMLToJS.Parser(options).parseString;
-
-            parser(xml, (error, result) => {
-                if (error) {
-                    return reject(error);
-                }
-
-                return resolve(result);
-            });
-        });
+        return (new XMLParser(parserOptions)).parse(xml, validatorOptions);
     }
 
     /**
      * Converts as JS object into an XML string
      *
      * @param obj
-     * @param options
+     * @param builderOptions
      */
     public static objToXML<Type> (
         obj: Type,
-        options: BuilderOptions = {}
+        builderOptions: Partial<XMLBuilderOptions> = {}
     ): string {
-        return new XMLToJS.Builder(options).buildObject(obj);
+        return (new XMLBuilder(builderOptions)).build(obj).toString();
     }
 }
 
