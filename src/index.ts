@@ -1,4 +1,4 @@
-// Copyright (c) 2015-2023, Brandon Lehmann <brandonlehmann@gmail.com>
+// Copyright (c) 2015-2025, Brandon Lehmann <brandonlehmann@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -19,8 +19,10 @@
 // SOFTWARE.
 
 import {
-    XMLParser, X2jOptions as XMLParserOptions, XMLBuilder,
-    XmlBuilderOptions as XMLBuilderOptions, validationOptions as XMLValidatorOptions
+    XMLParser, X2jOptions as XMLParserOptions,
+    XMLBuilder,
+    XmlBuilderOptions as XMLBuilderOptions,
+    validationOptions as XMLValidatorOptions
 } from 'fast-xml-parser';
 
 export default abstract class XML {
@@ -36,7 +38,7 @@ export default abstract class XML {
         parserOptions: Partial<XMLParserOptions> = {},
         validatorOptions?: boolean | Partial<XMLValidatorOptions>
     ): Promise<Type> {
-        if (xml instanceof Buffer) {
+        if (typeof xml !== 'string') {
             xml = xml.toString();
         }
 
