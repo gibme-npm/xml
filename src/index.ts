@@ -25,7 +25,7 @@ import {
     validationOptions as XMLValidatorOptions
 } from 'fast-xml-parser';
 
-export default abstract class XML {
+export abstract class XML {
     /**
      * Parses the XML provided into a JS object
      *
@@ -35,8 +35,8 @@ export default abstract class XML {
      */
     public static async parseXML<Type> (
         xml: string | Buffer,
-        parserOptions: Partial<XMLParserOptions> = {},
-        validatorOptions?: boolean | Partial<XMLValidatorOptions>
+        parserOptions: Partial<XML.ParserOptions> = {},
+        validatorOptions?: boolean | Partial<XML.ValidatorOptions>
     ): Promise<Type> {
         if (typeof xml !== 'string') {
             xml = xml.toString();
@@ -46,17 +46,25 @@ export default abstract class XML {
     }
 
     /**
-     * Converts as JS object into an XML string
+     * Converts as a JS object into an XML string
      *
      * @param obj
      * @param builderOptions
      */
     public static objToXML<Type> (
         obj: Type,
-        builderOptions: Partial<XMLBuilderOptions> = {}
+        builderOptions: Partial<XML.BuilderOptions> = {}
     ): string {
         return (new XMLBuilder(builderOptions)).build(obj).toString();
     }
 }
 
-export { XML };
+export namespace XML {
+    export type BuilderOptions = XMLBuilderOptions;
+
+    export type ParserOptions = XMLParserOptions;
+
+    export type ValidatorOptions = XMLValidatorOptions;
+}
+
+export default XML;
